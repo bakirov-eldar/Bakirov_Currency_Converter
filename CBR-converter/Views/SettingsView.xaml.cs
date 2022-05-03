@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CBR_converter.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,13 +17,15 @@ using System.Windows.Shapes;
 namespace CBR_converter.Views
 {
     /// <summary>
-    /// Логика взаимодействия для ConverterPageView.xaml
+    /// Логика взаимодействия для SettingsPageView.xaml
     /// </summary>
-    public partial class ConverterPageView : Page
+    public partial class SettingsView : UserControl
     {
-        public ConverterPageView()
+        public SettingsView()
         {
             InitializeComponent();
+
+            DataContext = new SettingsViewModel();
         }
     }
 }

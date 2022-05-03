@@ -6,9 +6,29 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Style/LightStyle.xaml"/>
                 <ResourceDictionary Source="Style/DarkStyle.xaml"/>
+                <ResourceDictionary Source="Style/LightStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="CaptionButtonStyle" TargetType="Button">
+                <Setter Property="Width" Value="50"/>
+                <Setter Property="Height" Value="38"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid x:Name="LayoutRoot" Background="{DynamicResource background}">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center">
+                                </ContentPresenter>
+                            </Grid>s
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="LayoutRoot" Property="Background" Value="{DynamicResource selectcolor}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

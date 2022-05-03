@@ -12,17 +12,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CBR_converter.ViewModels;
 
-namespace CBR_converter
+namespace CBR_converter.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для ConverterPageView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ConverterView : UserControl
     {
-        public MainWindow()
+        public ConverterView()
         {
             InitializeComponent();
+
+            DataContext = new ConverterViewModel();
         }
     }
 }
