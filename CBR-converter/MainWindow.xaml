@@ -52,10 +52,21 @@
                     VerticalAlignment="Top"
                     >
             <Button x:Name="MinimizeAppButton"
+                    Command="{Binding MinimizeWindowCommand}"
                     Style="{DynamicResource MinimizeButtonStyle}"/>
             <Button x:Name="CloseAppButton" 
+                    Command="{Binding ExitWindowCommand}"
                     Style="{DynamicResource CloseButtonStyle}"/>
         </StackPanel>
         <ContentControl Margin="0 38 0 0" Content="{Binding MainContent}"/>
+        <Button x:Name="SettingsButton"
+                Margin="0 0 10 15"
+                Padding="0"
+                Width="30"
+                Height="30"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Style="{Binding SettingsButtonStyle}"
+                Command="{Binding ChangeViewCommand}"/>
     </Grid>
 </Window>
