@@ -27,5 +27,32 @@ namespace CBR_converter.Views
 
             DataContext = new ConverterViewModel();
         }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+        
+        void OnComboboxTextChanged(object sender, RoutedEventArgs e)
+        {
+            var combobox = (ComboBox)sender;
+            var tb = (TextBox)e.OriginalSource;
+            if (tb.SelectionStart != 0)
+            {
+                combobox.SelectedItem = null; // Если набирается текст сбросить выбраный элемент
+            }
+            if (tb.SelectionStart == 0 && combobox.SelectedItem == null)
+            {
+                combobox.IsDropDownOpen = false; // Если сбросили текст и элемент не выбран, сбросить фокус выпадающего списка
+            }
+
+            combobox.IsDropDownOpen = true;
+            if (combobox.SelectedItem == null)
+            {
+                // Если элемент не выбран менять фильтр
+                CollectionView cv = (CollectionView)CollectionViewSource.GetDefaultView(combobox.ItemsSource);
+                cv.Filter = s => ((string)s).IndexOf(combobox.Text, StringComparison.CurrentCultureIgnoreCase) >= 0;
+            }
+        }
     }
 }

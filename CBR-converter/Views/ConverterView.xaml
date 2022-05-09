@@ -3,28 +3,124 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:CBR_converter.Views"
-      mc:Ignorable="d" 
+      xmlns:local="clr-namespace:CBR_converter.Views" xmlns:viewmodels="clr-namespace:CBR_converter.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ConverterViewModel}"
+             mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Background="{DynamicResource background}">
     <UserControl.Resources>
+
+        <Style TargetType="{x:Type Border}" x:Key="InputValueBorder">
+            <Setter Property="Background" Value="{DynamicResource background}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource foreground}"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Width" Value="320"/>
+            <Setter Property="Height" Value="70"/>
+        </Style>
+        <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+            <VisualBrush.Visual>
+                <Label FontSize="30" Content="Введите значение" Foreground="{DynamicResource selectcolor}" />
+            </VisualBrush.Visual>
+        </VisualBrush>
+        <Style TargetType="{x:Type TextBox}" x:Key="InputValueTextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+            <Setter Property="Foreground" Value="{DynamicResource foreground}"/>
+            <Setter Property="Background" Value="{DynamicResource background}"/>
+            <Setter Property="FontFamily" Value="Montserrat Thin"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Style.Triggers>
+                <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                    <Setter Property="Background" Value="{DynamicResource CueBannerBrush}" />
+                </Trigger>
+                <Trigger Property="Text" Value="{x:Null}">
+                    <Setter Property="Background" Value="{DynamicResource CueBannerBrush}" />
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource background}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource LabelBaseStyle}" x:Key="InputValueLabel">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="FontFamily" Value="Montserrat Thin"/>
+        </Style>
         <Style TargetType="{x:Type Button}" 
                x:Name="SettingsButtonStyle">
             <Setter Property="Width" Value="30"/>
             <Setter Property="Height" Value="30"/>
         </Style>
-        <Style TargetType="{x:Type ComboBox}">
-            
-        </Style>
+        
+  
     </UserControl.Resources>
     <Grid>
         <ComboBox 
+            Style="{DynamicResource ComboBoxFlatStyle}"
             Width="320"
-            Height="30"
             Margin="40 22 0 0"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top">
+            VerticalAlignment="Top"
+            IsEditable="True" SelectionChanged="ComboBox_SelectionChanged"
+            TextBoxBase.TextChanged="OnComboboxTextChanged"
+            ItemsSource="{Binding ValuteList}">
         </ComboBox>
+        <ComboBox 
+            Style="{DynamicResource ComboBoxFlatStyle}"
+            Width="320"
+            Margin="0 22 40 0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            SelectionChanged="ComboBox_SelectionChanged"
+            IsEditable="True"
+            TextBoxBase.TextChanged="OnComboboxTextChanged"
+            ItemsSource="{Binding ValuteList2}">
+        </ComboBox>
+        <Border Style="{DynamicResource InputValueBorder}" Margin="40 82 0 0" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Grid>
+                <Label Margin="8 5 0 0" Style="{DynamicResource InputValueLabel}"/>
+                <TextBox Margin="8 20 8 8" Style="{DynamicResource InputValueTextBox}">
+                </TextBox>
+            </Grid>
+            
+        </Border>
+        <Border Style="{DynamicResource InputValueBorder}" Margin="0 82 40 0" VerticalAlignment="Top" HorizontalAlignment="Right">
+            <Grid>
+                <Label Margin="8 5 0 0" Style="{DynamicResource InputValueLabel}"/>
+                <TextBox Margin="8 20 8 8" Style="{DynamicResource InputValueTextBox}">
+                </TextBox>
+            </Grid>
+        </Border>
+        <Button Height="40" Width="40">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <Path Fill="{DynamicResource foreground}" Data="M27 14L33.6406 7.35938L27 0.640625V5.64062H2V9H27V14ZM7 14L0.359375 20.6406L7 27.3594V22.3594H32V19H7V14Z"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Grid Background="{DynamicResource background}">
+                                    <Path x:Name="LayoutRoot" HorizontalAlignment="Center"
+                                              VerticalAlignment="Center">
+                                    </Path>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="LayoutRoot" Property="Fill" Value="{DynamicResource selectcolor}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
         <Label x:Name="ActualDate"
                VerticalAlignment="Bottom"
                HorizontalAlignment="Left"
@@ -33,7 +129,7 @@
                Padding="0"
                Margin="40 0 0 28" FontFamily="Montserrat Thin"
                >
-            Курс Банка России на 2 мая 2022 года
+            Курс Банка России на 5 мая 2022 года
         </Label>
     </Grid>
 </UserControl>

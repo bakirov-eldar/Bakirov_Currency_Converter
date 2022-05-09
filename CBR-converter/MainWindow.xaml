@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:CBR_converter"
         xmlns:views="clr-namespace:CBR_converter.Views"
         xmlns:viewmodels="clr-namespace:CBR_converter.ViewModels"
+        xmlns:language="clr-namespace:CBR_converter.Resources.Languages"
         mc:Ignorable="d"
         Title="MainWindow" Height="255" Width="800"
         WindowState="Normal"
@@ -44,9 +45,7 @@
                Margin="15 10 0 0"
                Padding="0"
                FontFamily="Montserrat Thin"
-               Content="{Binding AppName}"
-               >
-        </Label>
+               Content="{x:Static language:Lang.AppName}"/>
         <StackPanel Orientation="Horizontal" 
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
