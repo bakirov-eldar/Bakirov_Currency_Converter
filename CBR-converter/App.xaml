@@ -133,6 +133,7 @@
                                          FontFamily="Montserrat Thin"
                                          FontWeight="Regular"
                                          FontSize="14"
+                                             Padding="0"
                                              Foreground="{DynamicResource foreground}">
                                         <TextBox.Template>
                                             <ControlTemplate TargetType="TextBox" >

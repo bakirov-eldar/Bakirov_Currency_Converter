@@ -21,11 +21,12 @@ namespace CBR_converter
     /// </summary>
     public partial class MainWindow : Window
     {
+        MainWindowViewModel mainWindowViewModel;
         public MainWindow()
         {
             InitializeComponent();
 
-            DataContext = new MainWindowViewModel();
+            DataContext = mainWindowViewModel = new MainWindowViewModel();
         }
     }
 }
